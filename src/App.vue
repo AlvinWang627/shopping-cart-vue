@@ -236,7 +236,7 @@ body {
   position: fixed;
   width: 100%;
   height: 60px;
-  z-index: 999;
+  z-index: 10;
   background-color: $white;
   .navbar-toggle {
     visibility: hidden;

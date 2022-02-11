@@ -35,6 +35,7 @@
           <button
             class="btn-control_primary w-100"
             @click.stop.prevent="handleSubmit"
+            @click.stop="showModal = true"
             v-show="page === 'payment'"
           >
             送出申請
@@ -43,6 +44,15 @@
       </div>
       <shoppingCart :initial-shoppingcartcontent="shoppingcartContent" />
     </div>
+    <!-- 挑戰一 難度二 -->
+    <modal
+      v-show="showModal"
+      :show="showModal"
+      @closeModal="showModal = false"
+      :freight="shoppingcartContent.freight"
+      :address="address"
+      :card-information="cardInformation"
+    />
   </div>
 </template>
 
@@ -54,6 +64,7 @@ import shippingAddress from "../components/shippingAddress.vue";
 import shippingMethod from "../components/shippingMethod.vue";
 import paymentInformation from "../components/paymentInformation.vue";
 import shoppingCart from "../components/shoppingCart.vue";
+import modal from "../components/modal.vue";
 
 const dummyData = {
   product: [
@@ -81,12 +92,14 @@ export default {
     shippingMethod,
     paymentInformation,
     shoppingCart,
+    modal,
   },
   data() {
     return {
       page: "address",
       step: 0,
       nextStep: "下一步 →",
+      showModal: false,
       shoppingcartContent: {
         product: {
           id: -1,
@@ -152,6 +165,7 @@ export default {
     informationUpdate(payload) {
       this.cardInformation = payload;
     },
+    //挑戰一難度一
     handleSubmit() {
       console.log(`
         gender: ${this.address.gender}
@@ -164,7 +178,7 @@ export default {
         cardName: ${this.cardInformation.cardName}
         cardNumber: ${this.cardInformation.cardNumber}
         cardDate: ${this.cardInformation.cardDate}
-        cardLastNumber: ${this.cardInformation.cardLastNumber}
+        cardLastNumber: ${this.cardInformation.cardLastNumber}   
       `);
     },
   },
