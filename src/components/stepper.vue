@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="stepper-container">
-      <div :class="['step active', {checked: page === 'method' || 'payment'}]">
+      <div :class="['step active', {checked: page !== 'address'}]">
         <div class="circle"></div>
       </div>
       <div class="step-name">寄送地址</div>
