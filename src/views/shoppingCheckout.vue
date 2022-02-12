@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navbar />
     <div class="main-content">
       <div class="title">結帳</div>
       <div class="checkout-content">
@@ -38,7 +37,7 @@
             @click.stop="showModal = true"
             v-show="page === 'payment'"
           >
-            送出申請
+            確認下單
           </button>
         </div>
       </div>
@@ -58,13 +57,14 @@
 
 
 <script>
-import navbar from "../components/navbar.vue";
+
 import stepper from "../components/stepper.vue";
 import shippingAddress from "../components/shippingAddress.vue";
 import shippingMethod from "../components/shippingMethod.vue";
 import paymentInformation from "../components/paymentInformation.vue";
 import shoppingCart from "../components/shoppingCart.vue";
 import modal from "../components/modal.vue";
+
 
 const dummyData = {
   product: [
@@ -86,7 +86,6 @@ const dummyData = {
 };
 export default {
   components: {
-    navbar,
     stepper,
     shippingAddress,
     shippingMethod,

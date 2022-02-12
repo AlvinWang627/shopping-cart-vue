@@ -1,235 +1,25 @@
 <template>
   <div id="shopping-cart">
+    <navbar />
     <router-view />
+    <Footer />
   </div>
 </template>
+
+<script>
+import navbar from "./components/navbar.vue";
+import Footer from "./components/footer.vue";
+export default {
+  components: {
+    Footer,
+    navbar,
+  },
+};
+</script>
 
 
 <style lang="scss">
 @import "assets/scss/main.scss";
-body {
-  margin: 0;
-  padding: 0;
-}
-* {
-  box-sizing: border-box;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin: 0px;
-  padding: 0px;
-}
-ul,
-ol,
-li {
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-}
-a,
-a:hover,
-a:focus {
-  text-decoration: none;
-}
-img {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-.btn,
-button,
-button:focus,
-input:focus,
-textarea:focus,
-select,
-select:focus,
-a:focus {
-  outline: 0px !important;
-}
-button {
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
-}
-button[disabled] {
-  pointer-events: none;
-}
-input {
-  padding: 0;
-}
-input:required {
-  box-shadow: none;
-}
-input:invalid {
-  box-shadow: none;
-}
-
-// sass basic setting
-$body-bg: #ffffff;
-$body-color: #18253d;
-$white: #ffffff;
-$dark-gray: #4a4a4a;
-$light-gray: #2a2a2a; 
-
-$sizes: (
-  25: 25%,
-  50: 50%,
-  75: 75%,
-  100: 100%,
-);
-
-/* 使用@each 產出css size設定 */
-@each $prop, $abbrev in (width: w, height: h) {
-  @each $num, $val in $sizes {
-    .#{$abbrev}-#{$num} {
-      #{$prop}: $val;
-    }
-  }
-}
-
-$spacer: 1rem;
-$spacers: (
-  0: 0,
-  1: (
-    $spacer * 0.25,
-  ),
-  2: (
-    $spacer * 0.5,
-  ),
-  3: (
-    $spacer * 0.75,
-  ),
-  4: $spacer,
-  5: (
-    $spacer * 1.25,
-  ),
-  6: (
-    $spacer * 1.5,
-  ),
-  7: (
-    $spacer * 1.75,
-  ),
-  8: (
-    $spacer * 2,
-  ),
-);
-
-%input-style {
-  width: 100%;
-  margin-top: 3px;
-  height: 40px;
-  padding-left: 1rem;
-  border-radius: 4px;
-  font-size: 12px;
-  border: 1px solid #4a4a4a;
-  &:hover,
-  &:focus {
-    border: 2px solid #4a4a4a;
-  }
-}
-
-html {
-  font-size: 16px;
-  height: 100%;
-  margin: 15px;
-}
-
-body {
-  height: 100%;
-  background: $body-bg;
-  color: $body-color;
-  font-family: Noto Sans TC;
-}
-
-.d-none {
-  display: none;
-}
-
-.d-inline {
-  display: inline;
-}
-
-.d-inline-block {
-  display: inline-block;
-}
-
-.d-block {
-  display: block;
-}
-
-.d-flex {
-  display: flex;
-}
-
-.flex-column {
-  flex-direction: column;
-}
-
-.justify-content-start {
-  justify-content: flex-start;
-}
-
-.justify-content-end {
-  justify-content: flex-end;
-}
-
-.justify-content-center {
-  justify-content: center;
-}
-
-.justify-content-between {
-  justify-content: space-between;
-}
-
-.justify-content-around {
-  justify-content: space-around;
-}
-
-.align-content-start {
-  align-content: flex-start;
-}
-
-.align-content-end {
-  align-content: flex-end;
-}
-
-.align-content-center {
-  align-content: center;
-}
-
-.align-items-start {
-  align-items: flex-start;
-}
-
-.align-items-end {
-  align-items: flex-end;
-}
-
-.align-items-center {
-  align-items: center;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-right {
-  text-align: right;
-}
-
-.text-left {
-  text-align: left;
-}
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
 // style start
 // header
 .navbar {
@@ -376,7 +166,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1.5rem 0 2rem 0;
+  margin: 0 0 2rem 0;
   .step {
     position: relative;
     display: flex;
@@ -416,7 +206,7 @@ body {
   display: grid;
   grid-template-rows: repeat(5, 1fr);
   grid-template-columns: repeat(5, 1fr);
-  grid-gap: 0.5rem 1rem;
+  grid-gap: 1.7rem 1rem;
   width: 21rem;
   .input-gender {
     grid-column: 1 / 3;
@@ -445,11 +235,15 @@ body {
   label {
     display: block;
   }
+  .input-email {
+    font-size: 16px;
+  }
 }
 
 //運送方式
 .form-step2 {
   width: 21.5rem;
+  margin-bottom: 147px;
   .shipping-method {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -494,7 +288,7 @@ body {
 
 //付款資訊
 .part-name {
-  margin-bottom: 24px;
+  margin: 50px 0 24px 0;
   width: 21rem;
 }
 .form-step3 {
@@ -512,6 +306,7 @@ body {
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 0rem 1rem;
+    margin-bottom: 43px;
     &_name,
     &_number {
       grid-column: 1 / 3;
@@ -663,6 +458,7 @@ footer {
     width: 100%;
   }
   .form-step1 {
+    margin-bottom: 34px;
     grid-template-rows: repeat(3, 1fr);
     .input-phone {
       grid-column: 1 / 4;
@@ -697,7 +493,7 @@ footer {
   .shopping-cart-content {
     grid-column: 8 / 13;
     grid-row: 2 / 4;
-    padding: 2.5rem 1rem;
+    padding: 1rem 1rem;
     position: relative;
     .product-content_item {
       justify-content: flex-start;
@@ -727,6 +523,7 @@ footer {
     justify-content: flex-end;
     &_primary {
       max-width: 50%;
+      margin-top: 15px;
     }
   }
   .cart-title {
