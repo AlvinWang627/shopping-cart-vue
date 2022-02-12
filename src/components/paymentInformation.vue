@@ -41,6 +41,7 @@
 </template>
 
 <script>
+const STORAGE_KEY_3 = "shopping-cart-cardInformation"
 export default {
   data() {
     return {
@@ -52,9 +53,18 @@ export default {
       },
     };
   },
+  created() {
+    this.cardInformation = JSON.parse(localStorage.getItem(STORAGE_KEY_3) || this.cardInformation)
+  },
+  methods: {
+    saveStorage() {
+      localStorage.setItem(STORAGE_KEY_3, JSON.stringify(this.cardInformation) || this.cardInformation)
+    }
+  },
   watch: {
     cardInformation: {
       handler: function handleChange() {
+        this.saveStorage()
         this.$emit("information-update", this.cardInformation);
       },
       deep: true,

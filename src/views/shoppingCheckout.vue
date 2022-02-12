@@ -127,6 +127,14 @@ export default {
   },
   created() {
     this.fetchProduct();
+    this.freightUpdate()
+  },
+  watch: {
+    forWatchChange: {
+      handler: function () {
+      },
+      deep:true
+    },
   },
   methods: {
     //換下一頁function

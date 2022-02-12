@@ -11,11 +11,17 @@
         <div class="product-content_item_detail">
           <h3 class="product-content_item_detail_name">{{ product.name }}</h3>
           <div class="quantity-control">
-            <button class="btn-minus" @click.stop.prevent="minusBtn(index)">
+            <button
+              class="btn-minus"
+              @click.stop.prevent="minusBtn(index), saveStorage(index)"
+            >
               –
             </button>
             <div class="quantities">{{ product.quantity }}</div>
-            <button class="btn-add" @click.stop.prevent="addBtn(index)">
+            <button
+              class="btn-add"
+              @click.stop.prevent="addBtn(index), saveStorage(index)"
+            >
               ＋
             </button>
           </div>
@@ -28,8 +34,18 @@
     <div class="dividing-line"></div>
     <div class="freight">
       <h4>運費</h4>
-      <div class="freight-price" v-show="initialShoppingcartcontent.freight === '免費'">免費</div>
-      <div class="freight-price" v-show="initialShoppingcartcontent.freight !== '免費'">$500</div>
+      <div
+        class="freight-price"
+        v-show="initialShoppingcartcontent.freight === '免費'"
+      >
+        免費
+      </div>
+      <div
+        class="freight-price"
+        v-show="initialShoppingcartcontent.freight !== '免費'"
+      >
+        $500
+      </div>
     </div>
     <div class="dividing-line"></div>
     <div class="subtotal">
@@ -51,7 +67,7 @@ export default {
   data() {
     return {
       products: this.initialShoppingcartcontent.product,
-      freight: "免費",
+      freight: this.initialShoppingcartcontent.freight,
       subTotal: 5298,
     };
   },
@@ -85,19 +101,34 @@ export default {
     fetchFreight() {
       this.freight = this.initialShoppingcartcontent.freight;
     },
+    // 做create freight用
+    handleSubtotal() {
+      if (this.freight === "免費") {
+        this.subTotal =
+          parseInt(this.products[0].price) + parseInt(this.products[1].price);
+      } else {
+        this.subTotal =
+          parseInt(this.products[0].price) +
+          parseInt(this.products[1].price) +
+          500;
+      }
+    },
   },
   computed: {
     //watch使用，用來一次監聽兩個變數
     listenChange() {
-      const { products } = this
-      const { freight } = this.initialShoppingcartcontent
+      const { products } = this;
+      const { freight } = this.initialShoppingcartcontent;
       return { products, freight };
     },
+  },
+  created() {
+    this.handleSubtotal();
   },
   watch: {
     //小計更新用，金額有變就更新
     listenChange: {
-      handler: function handleSubtotal() {
+      handler: function () {
         if (this.initialShoppingcartcontent.freight === "免費") {
           this.subTotal =
             parseInt(this.products[0].price) + parseInt(this.products[1].price);

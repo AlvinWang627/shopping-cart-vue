@@ -35,7 +35,7 @@
         </select>
       </div>
       <div class="input-address">
-        <label for="">地址</label>
+        <label for="" >地址</label>
         <input type="text" placeholder="請輸入地址" v-model="address.address" />
       </div>
     </div>
@@ -44,6 +44,7 @@
 
 
 <script>
+const STORAGE_KEY_1 = "shopping-cart-address";
 export default {
   data() {
     return {
@@ -57,10 +58,19 @@ export default {
       },
     };
   },
+  created() {
+    this.address = JSON.parse(localStorage.getItem(STORAGE_KEY_1) || this.address);
+  },
+  methods: {
+    saveStorage() {
+      localStorage.setItem(STORAGE_KEY_1, JSON.stringify(this.address));
+    },
+  },
   watch: {
     address: {
-      handler: function handleChange() {
+      handler: function () {
         this.$emit("address-update", this.address);
+        this.saveStorage()
       },
       deep: true,
     },
