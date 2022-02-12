@@ -212,7 +212,7 @@ export default {
     grid-column: 1 / 3;
     select {
       @extend %input-style;
-      color: #999999;
+      // color: #999999;
     }
   }
   .input-name {
@@ -229,7 +229,7 @@ export default {
     input,
     select {
       @extend %input-style;
-      color: #999999;
+      // color: #999999;
     }
   }
   label {
