@@ -14,6 +14,7 @@
             <button
               class="btn-minus"
               @click.stop.prevent="minusBtn(product.id)"
+              :disabled ="product.quantity === 0"
             >
               –
             </button>
@@ -99,30 +100,18 @@ export default {
     fetchFreight() {
       this.freight = this.initialShoppingcartcontent.freight;
     },
-    // 做create freight用
-    handleSubtotal() {
-      if (this.freight === "免費") {
-        this.subTotal =
-          parseInt(this.products[0].price) + parseInt(this.products[1].price);
-      } else {
-        this.subTotal =
-          parseInt(this.products[0].price) +
-          parseInt(this.products[1].price) +
-          500;
-      }
-    },
   },
   computed: {
     //watch使用，用來一次監聽兩個變數
     listenChange() {
       const { products } = this;
-      const { freight } = this.initialShoppingcartcontent;
+      const { freight } = this.initialShoppingcartcontent.freight;
       return { products, freight };
     },
     subTotal2() {
       //小計總額計算用，商品加上運費，丟到watch做監控
       const currentFreight =
-        this.initialShoppingcartcontent.freight === "免費" ? 0 : 500;
+        this.freight === "免費" ? 0 : 500;
       const productsPrice = this.products.reduce((acc, product) => {
         return (acc += product.quantity * product.price);
       }, 0);
@@ -130,12 +119,14 @@ export default {
     },
   },
   created() {
-    this.handleSubtotal();
+    this.subTotal = this.subTotal2
+    this.fetchFreight()
   },
   watch: {
     //小計更新用，金額有變就更新
     listenChange: {
       handler: function () {
+        this.fetchFreight()
         this.subTotal = this.subTotal2;
       },
       deep: true,
