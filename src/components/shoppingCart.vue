@@ -26,7 +26,7 @@
             </button>
           </div>
           <div class="product-content_item_detail_price" id="product-1">
-            ${{ product.price }}
+            {{ product.price | formatPrice }}
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@
     <div class="dividing-line"></div>
     <div class="subtotal">
       <h4>小計</h4>
-      <div>${{ this.subTotal }}</div>
+      <div>{{ this.subTotal | formatPrice }}</div>
     </div>
   </div>
 </template>
@@ -70,6 +70,11 @@ export default {
       freight: this.initialShoppingcartcontent.freight,
       subTotal: 5298,
     };
+  },
+  filters: {
+    formatPrice(price) {
+      return `$${price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+    },
   },
   methods: {
     //購物車加號按鈕
