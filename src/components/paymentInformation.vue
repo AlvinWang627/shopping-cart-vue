@@ -54,11 +54,11 @@ export default {
     };
   },
   created() {
-    this.cardInformation = JSON.parse(localStorage.getItem(STORAGE_KEY_3) || this.cardInformation)
+    this.cardInformation = JSON.parse(localStorage.getItem(STORAGE_KEY_3)) || this.cardInformation
   },
   methods: {
     saveStorage() {
-      localStorage.setItem(STORAGE_KEY_3, JSON.stringify(this.cardInformation) || this.cardInformation)
+      localStorage.setItem(STORAGE_KEY_3, JSON.stringify(this.cardInformation))
     }
   },
   watch: {

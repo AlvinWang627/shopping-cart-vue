@@ -5,7 +5,7 @@
       <div class="input-gender">
         <label for="">稱謂</label>
         <select name="gender" v-model="address.gender">
-          <!-- <option value="" disabled selected>請選擇稱謂</option> -->
+          <option value="" disabled selected>請選擇稱謂</option>
           <option value="先生">先生</option>
           <option value="小姐">小姐</option>
         </select>
@@ -59,7 +59,7 @@ export default {
     };
   },
   created() {
-    this.address = JSON.parse(localStorage.getItem(STORAGE_KEY_1) || this.address);
+    this.address = JSON.parse(localStorage.getItem(STORAGE_KEY_1)) || this.address;
   },
   methods: {
     saveStorage() {

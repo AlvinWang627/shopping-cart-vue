@@ -32,8 +32,8 @@
 </template>
 
 <script>
-const STORAGE_KEY_2 = 'shopping-cart-method'
-const STORAGE_KEY_2_1 = 'current-freight-id'
+const STORAGE_KEY_2 = "shopping-cart-method";
+const STORAGE_KEY_2_1 = "current-freight-id";
 export default {
   data() {
     return {
@@ -52,26 +52,28 @@ export default {
         },
       ],
       currentPick: 1,
-      currentFreight: "免費"
+      currentFreight: "免費",
     };
   },
   created() {
-    this.currentFreight = JSON.parse(localStorage.getItem(STORAGE_KEY_2) || this.currentFreight)
-    this.currentPick = JSON.parse(localStorage.getItem(STORAGE_KEY_2_1) || this.currentPick)
-    this.handleFreight()
+    this.currentFreight =
+      JSON.parse(localStorage.getItem(STORAGE_KEY_2)) || this.currentFreight;
+    this.currentPick =
+      JSON.parse(localStorage.getItem(STORAGE_KEY_2_1)) || this.currentPick;
+    this.handleFreight();
   },
   methods: {
-    saveStorage(){
-      localStorage.setItem(STORAGE_KEY_2, JSON.stringify(this.currentFreight))
-      localStorage.setItem(STORAGE_KEY_2_1, JSON.stringify(this.currentPick))
+    saveStorage() {
+      localStorage.setItem(STORAGE_KEY_2, JSON.stringify(this.currentFreight));
+      localStorage.setItem(STORAGE_KEY_2_1, JSON.stringify(this.currentPick));
     },
     //讓運費預設在"免費"欄位(checked)、點擊時加上active的class用
     freightActive(index) {
       this.currentPick = this.shippingMethods[index].id;
-      this.currentFreight = this.shippingMethods[index].fright
+      this.currentFreight = this.shippingMethods[index].fright;
     },
     handleFreight() {
-      this.$emit("freight-update", this.currentFreight)
+      this.$emit("freight-update", this.currentFreight);
       this.saveStorage();
     },
   },
